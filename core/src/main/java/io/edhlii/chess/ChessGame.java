@@ -19,13 +19,22 @@ public class ChessGame extends ApplicationAdapter {
     private Texture image;
     private Board board;
 
+    private Piece whitePawn;
+    private Texture whitePawnTexture;
+
     @Override
     public void create() {
         image = new Texture("libgdx.png");
         batch = new SpriteBatch();
         shapeRenderer = new ShapeRenderer();
         viewport = new FitViewport(12, 8);
-        board = new Board(shapeRenderer);
+        board = new Board(shapeRenderer, batch);
+
+
+        whitePawnTexture = new Texture("white/Pawn.png");
+        whitePawn = new Pawn(batch, shapeRenderer, whitePawnTexture, board, PieceColor.WHITE, new Position(0, 1));
+        whitePawn.calculateValidMove();
+        board.addPiece(whitePawn);
     }
 
     @Override
@@ -41,11 +50,13 @@ public class ChessGame extends ApplicationAdapter {
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         board.drawBoard();
+        whitePawn.drawValidMove();
         shapeRenderer.end();
 
         batch.setProjectionMatrix(viewport.getCamera().combined);
         batch.begin();
         batch.draw(image, 9, 7, 2, 1);
+        board.drawPieces();
         batch.end();
     }
 
