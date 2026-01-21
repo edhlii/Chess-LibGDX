@@ -1,9 +1,13 @@
-package io.edhlii.chess;
+package io.edhlii.chess.pieces;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import io.edhlii.chess.Board;
+import io.edhlii.chess.Position;
 
 import java.util.ArrayList;
 
@@ -11,7 +15,9 @@ public class Piece {
     private SpriteBatch batch;
     private ShapeRenderer shapeRenderer;
     private Texture texture;
+    private FitViewport viewport;
 
+    protected boolean hasMoved;
     protected PieceColor color;
     protected Board board;
     protected Position currentPos;
@@ -24,7 +30,24 @@ public class Piece {
         this.color = color;
         this.texture = texture;
         this.currentPos = pos;
+        hasMoved = false;
         validMove = new ArrayList<>();
+    }
+
+    public boolean isHasMoved() {
+        return hasMoved;
+    }
+
+    public void setHasMoved(boolean hasMoved) {
+        this.hasMoved = hasMoved;
+    }
+
+    public Board getBoard() {
+        return board;
+    }
+
+    public void setBoard(Board board) {
+        this.board = board;
     }
 
     public PieceColor getColor() {
@@ -65,10 +88,10 @@ public class Piece {
 
     public void drawValidMove() {
         shapeRenderer.setColor(Color.RED);
-        shapeRenderer.rect(currentPos.col, currentPos.row, 1, 1);
+        shapeRenderer.rect((float) (currentPos.col + 0.25), (float) (currentPos.row + 0.25), 0.5f, 0.5f);
         shapeRenderer.setColor(Color.ROYAL);
         for (Position pos : validMove) {
-            shapeRenderer.rect(pos.col, pos.row, 1, 1);
+            shapeRenderer.rect((float) (pos.col + 0.25), (float) (pos.row + 0.25), 0.5f, 0.5f);
         }
     }
 

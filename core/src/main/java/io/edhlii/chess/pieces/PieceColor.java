@@ -1,4 +1,4 @@
-package io.edhlii.chess;
+package io.edhlii.chess.pieces;
 
 public enum PieceColor {
     WHITE, BLACK;
