@@ -55,21 +55,43 @@ public class ChessGame extends ApplicationAdapter {
     }
 
     public void initializeNewBoard() {
-        Pawn whitePawn = new Pawn(batch, shapeRenderer, whitePawnTexture, board, PieceColor.WHITE, new Position(1, 0));
-        Knight whiteKnight = new Knight(batch, shapeRenderer, whiteKnightTexture, board, PieceColor.WHITE, new Position(6, 5));
         King whiteKing = new King(batch, shapeRenderer, whiteKingTexture, board, PieceColor.WHITE, new Position(0, 3));
-
-        Rook blackRook = new Rook(batch, shapeRenderer, blackRookTexture, board, PieceColor.BLACK, new Position(5, 5));
-        Bishop blackBishop = new Bishop(batch, shapeRenderer, blackBishopTexture, board, PieceColor.BLACK, new Position(5, 6));
+        Queen whiteQueen = new Queen(batch, shapeRenderer, whiteQueenTexture, board, PieceColor.WHITE, new Position(0, 4));
         King blackKing = new King(batch, shapeRenderer, blackKingTexture, board, PieceColor.BLACK, new Position(7, 4));
+        Queen blackQueen = new Queen(batch, shapeRenderer, blackQueenTexture, board, PieceColor.BLACK, new Position(7, 3));
 
-        board.addPiece(whitePawn);
-        board.addPiece(whiteKnight);
+        // Add white pawn piece
+        for (int i = 0; i < ChessGame.BOARD_SIZE; ++i) {
+            board.addPiece(new Pawn(batch, shapeRenderer, whitePawnTexture, board, PieceColor.WHITE, new Position(1, i)));
+        }
+        // Add black pawn piece
+        for (int i = 0; i < ChessGame.BOARD_SIZE; ++i) {
+            board.addPiece(new Pawn(batch, shapeRenderer, blackPawnTexture, board, PieceColor.BLACK, new Position(6, i)));
+        }
+
+        board.addPiece(new Rook(batch, shapeRenderer, whiteRookTexture, board, PieceColor.WHITE, new Position(0, 0)));
+        board.addPiece(new Rook(batch, shapeRenderer, whiteRookTexture, board, PieceColor.WHITE, new Position(0, 7)));
+
+        board.addPiece(new Knight(batch, shapeRenderer, whiteKnightTexture, board, PieceColor.WHITE, new Position(0, 1)));
+        board.addPiece(new Knight(batch, shapeRenderer, whiteKnightTexture, board, PieceColor.WHITE, new Position(0, 6)));
+
+        board.addPiece(new Bishop(batch, shapeRenderer, whiteBishopTexture, board, PieceColor.WHITE, new Position(0, 2)));
+        board.addPiece(new Bishop(batch, shapeRenderer, whiteBishopTexture, board, PieceColor.WHITE, new Position(0, 5)));
+
+        board.addPiece(new Rook(batch, shapeRenderer, blackRookTexture, board, PieceColor.BLACK, new Position(7, 0)));
+        board.addPiece(new Rook(batch, shapeRenderer, blackRookTexture, board, PieceColor.BLACK, new Position(7, 7)));
+
+        board.addPiece(new Knight(batch, shapeRenderer, blackKnightTexture, board, PieceColor.BLACK, new Position(7, 1)));
+        board.addPiece(new Knight(batch, shapeRenderer, blackKnightTexture, board, PieceColor.BLACK, new Position(7, 6)));
+
+        board.addPiece(new Bishop(batch, shapeRenderer, blackBishopTexture, board, PieceColor.BLACK, new Position(7, 2)));
+        board.addPiece(new Bishop(batch, shapeRenderer, blackBishopTexture, board, PieceColor.BLACK, new Position(7, 5)));
+
         board.addPiece(whiteKing);
+        board.addPiece(whiteQueen);
 
-        board.addPiece(blackRook);
-        board.addPiece(blackBishop);
         board.addPiece(blackKing);
+        board.addPiece(blackQueen);
 
         board.calculateBoard();
     }
