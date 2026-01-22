@@ -59,10 +59,14 @@ public class ChessGame extends ApplicationAdapter {
         Knight whiteKnight = new Knight(batch, shapeRenderer, whiteKnightTexture, board, PieceColor.WHITE, new Position(6, 5));
 
         Rook blackRook = new Rook(batch, shapeRenderer, blackRookTexture, board, PieceColor.BLACK, new Position(5, 5));
+        Bishop blackBishop = new Bishop(batch, shapeRenderer, blackBishopTexture, board, PieceColor.BLACK, new Position(5, 6));
 
         board.addPiece(whitePawn);
-        board.addPiece(blackRook);
         board.addPiece(whiteKnight);
+
+        board.addPiece(blackRook);
+        board.addPiece(blackBishop);
+
         board.calculateBoard();
     }
 

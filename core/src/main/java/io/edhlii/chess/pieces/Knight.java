@@ -18,11 +18,7 @@ public class Knight extends Piece {
         int[] dy = {1, 2, 2, 1, -1, -2, -2, -1};
         for (int i = 0; i < 8; ++i) {
             Position pos = new Position(currentPos.row + dx[i], currentPos.col + dy[i]);
-            if (pos.isOutOfBoard()) continue;
-            Piece piece = board.getPieceAt(pos);
-            if (piece != null && piece.getColor() != this.color.opponent())
-                continue;
-            validMove.add(pos);
+            if (validPosition(pos)) validMove.add(pos);
         }
     }
 }

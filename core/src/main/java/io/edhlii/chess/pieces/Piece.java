@@ -95,6 +95,14 @@ public class Piece {
         }
     }
 
+    public boolean validPosition(Position pos) {
+        if (pos.isOutOfBoard()) return false;
+        Piece piece = board.getPieceAt(pos);
+        if (piece == null) return true;
+        if (piece.getColor() == color.opponent()) return true;
+        return false;
+    }
+
     public void calculateValidMove() {
     }
 
