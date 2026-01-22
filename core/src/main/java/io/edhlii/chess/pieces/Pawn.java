@@ -14,13 +14,16 @@ public class Pawn extends Piece {
     @Override
     public void calculateValidMove() {
         validMove.clear();
+        int offset;
+        if (color == PieceColor.WHITE) offset = 1;
+        else offset = -1;
         if (!hasMoved) {
-            Position targetPos = new Position(currentPos.row + 1, currentPos.col);
+            Position targetPos = new Position(currentPos.row + offset, currentPos.col);
 //            Position tempPos = new Position(targetPos.row, targetPos.col);
             Piece targetPiece = board.getPieceAt(targetPos);
             if (targetPiece == null) {
                 validMove.add(new Position(targetPos.row, targetPos.col));
-                targetPos.row++;
+                targetPos.row += offset;
                 targetPiece = board.getPieceAt(targetPos);
                 if (targetPiece == null || targetPiece.getColor() == color.opponent()) {
                     validMove.add(new Position(targetPos.row, targetPos.col));
@@ -29,7 +32,7 @@ public class Pawn extends Piece {
                 validMove.add(targetPos);
             }
         } else {
-            Position targetPos = new Position(currentPos.row + 1, currentPos.col);
+            Position targetPos = new Position(currentPos.row + offset, currentPos.col);
             Piece targetPiece = board.getPieceAt(targetPos);
             if (targetPiece == null) {
                 validMove.add(new Position(targetPos.row, targetPos.col));
