@@ -67,8 +67,8 @@ public class Board {
     }
 
     public void drawBoard() {
-        for (int row = 0; row < 8; ++row) {
-            for (int col = 0; col < 8; ++col) {
+        for (int row = 0; row < ChessGame.BOARD_SIZE; ++row) {
+            for (int col = 0; col < ChessGame.BOARD_SIZE; ++col) {
                 if ((row + col) % 2 == 0) {
                     shapeRenderer.setColor(Color.WHITE);
                 } else {
@@ -78,6 +78,7 @@ public class Board {
             }
         }
         if (gameInputHandler.getSelectedPos() == null) return;
+        getPieceAt(gameInputHandler.getSelectedPos()).drawValidMove();
     }
 
     public void drawPieces() {

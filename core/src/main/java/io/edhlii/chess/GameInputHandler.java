@@ -25,10 +25,8 @@ public class GameInputHandler implements InputProcessor {
 
     public void handleClick(int row, int col) {
         if (selectedPos == null) {
-            System.out.println(board.getPieces());
             if (board.getPieceAt(new Position(row, col)) == null) return;
             selectedPos = new Position(row, col);
-            System.out.println(selectedPos.row);
         } else {
             if (selectedPos.equals(new Position(row, col))) return;
             board.movePiece(selectedPos, new Position(row, col));

@@ -13,8 +13,9 @@ import io.edhlii.chess.pieces.*;
  * {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms.
  */
 public class ChessGame extends ApplicationAdapter {
-    public static int WINDOW_WIDTH = 1200;
-    public static int WINDOW_HEIGHT = 800;
+    public static final int WINDOW_WIDTH = 1200;
+    public static final int WINDOW_HEIGHT = 800;
+    public static final int BOARD_SIZE = 8;
     private SpriteBatch batch;
     private ShapeRenderer shapeRenderer;
     private FitViewport viewport;
@@ -22,8 +23,44 @@ public class ChessGame extends ApplicationAdapter {
     private Board board;
     private GameInputHandler gameInputHandler;
 
-    private Piece whitePawn;
+
     private Texture whitePawnTexture;
+    private Texture whiteRookTexture;
+    private Texture whiteKnightTexture;
+    private Texture whiteBishopTexture;
+    private Texture whiteQueenTexture;
+    private Texture whiteKingTexture;
+
+    private Texture blackPawnTexture;
+    private Texture blackRookTexture;
+    private Texture blackKnightTexture;
+    private Texture blackBishopTexture;
+    private Texture blackQueenTexture;
+    private Texture blackKingTexture;
+
+    public void initializeTexture() {
+        whitePawnTexture = new Texture("white/Pawn.png");
+        whiteRookTexture = new Texture("white/Rook.png");
+        whiteKnightTexture = new Texture("white/Knight.png");
+        whiteBishopTexture = new Texture("white/Bishop.png");
+        whiteQueenTexture = new Texture("white/Queen.png");
+        whiteKingTexture = new Texture("white/King.png");
+
+        blackPawnTexture = new Texture("black/Pawn.png");
+        blackRookTexture = new Texture("black/Rook.png");
+        blackKnightTexture = new Texture("black/Knight.png");
+        blackBishopTexture = new Texture("black/Bishop.png");
+        blackQueenTexture = new Texture("black/Queen.png");
+        blackKingTexture = new Texture("black/King.png");
+    }
+
+    public void initializeNewBoard() {
+        Pawn whitePawn = new Pawn(batch, shapeRenderer, whitePawnTexture, board, PieceColor.WHITE, new Position(1, 0));
+        Rook whiteRook = new Rook(batch, shapeRenderer, whiteRookTexture, board, PieceColor.WHITE, new Position(5, 5));
+        board.addPiece(whitePawn);
+        board.addPiece(whiteRook);
+        board.calculateBoard();
+    }
 
     @Override
     public void create() {
@@ -39,11 +76,8 @@ public class ChessGame extends ApplicationAdapter {
         Gdx.input.setInputProcessor(gameInputHandler);
         board.setGameInputHandler(gameInputHandler);
 
-        // Initialize texture
-        whitePawnTexture = new Texture("white/Pawn.png");
-        whitePawn = new Pawn(batch, shapeRenderer, whitePawnTexture, board, PieceColor.WHITE, new Position(0, 1));
-        board.addPiece(whitePawn);
-        board.calculateBoard();
+        initializeTexture();
+        initializeNewBoard();
     }
 
     @Override
@@ -61,7 +95,7 @@ public class ChessGame extends ApplicationAdapter {
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         board.drawBoard();
-        whitePawn.drawValidMove();
+//        whitePawn.drawValidMove();
         shapeRenderer.end();
 
         batch.setProjectionMatrix(viewport.getCamera().combined);
