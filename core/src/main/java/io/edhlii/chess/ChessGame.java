@@ -57,15 +57,19 @@ public class ChessGame extends ApplicationAdapter {
     public void initializeNewBoard() {
         Pawn whitePawn = new Pawn(batch, shapeRenderer, whitePawnTexture, board, PieceColor.WHITE, new Position(1, 0));
         Knight whiteKnight = new Knight(batch, shapeRenderer, whiteKnightTexture, board, PieceColor.WHITE, new Position(6, 5));
+        King whiteKing = new King(batch, shapeRenderer, whiteKingTexture, board, PieceColor.WHITE, new Position(0, 3));
 
         Rook blackRook = new Rook(batch, shapeRenderer, blackRookTexture, board, PieceColor.BLACK, new Position(5, 5));
         Bishop blackBishop = new Bishop(batch, shapeRenderer, blackBishopTexture, board, PieceColor.BLACK, new Position(5, 6));
+        King blackKing = new King(batch, shapeRenderer, blackKingTexture, board, PieceColor.BLACK, new Position(7, 4));
 
         board.addPiece(whitePawn);
         board.addPiece(whiteKnight);
+        board.addPiece(whiteKing);
 
         board.addPiece(blackRook);
         board.addPiece(blackBishop);
+        board.addPiece(blackKing);
 
         board.calculateBoard();
     }
