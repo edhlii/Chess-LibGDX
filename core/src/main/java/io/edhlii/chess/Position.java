@@ -10,6 +10,10 @@ public class Position {
         this.col = col;
     }
 
+    public boolean isOutOfBoard() {
+        return row < 0 || row >= ChessGame.BOARD_SIZE || col < 0 || col >= ChessGame.BOARD_SIZE;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
