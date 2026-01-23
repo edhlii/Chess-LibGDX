@@ -17,29 +17,31 @@ public class Pawn extends Piece {
         int offset;
         if (color == PieceColor.WHITE) offset = 1;
         else offset = -1;
+        Position pos;
         if (!hasMoved) {
-            Position targetPos = new Position(currentPos.row + offset, currentPos.col);
-//            Position tempPos = new Position(targetPos.row, targetPos.col);
-            Piece targetPiece = board.getPieceAt(targetPos);
-            if (targetPiece == null) {
-                validMove.add(new Position(targetPos.row, targetPos.col));
-                targetPos.row += offset;
-                targetPiece = board.getPieceAt(targetPos);
-                if (targetPiece == null || targetPiece.getColor() == color.opponent()) {
-                    validMove.add(new Position(targetPos.row, targetPos.col));
-                }
-            } else if (targetPiece.getColor() == color.opponent()) {
-                validMove.add(targetPos);
+            pos = new Position(currentPos.row + offset, currentPos.col);
+            if (validPosition(pos) && board.getPieceAt(pos) == null) {
+                validMove.add(pos);
+                pos = new Position(currentPos.row + offset * 2, currentPos.col);
+                if (validPosition(pos) && board.getPieceAt(pos) == null) validMove.add(pos);
             }
         } else {
-            Position targetPos = new Position(currentPos.row + offset, currentPos.col);
-            Piece targetPiece = board.getPieceAt(targetPos);
-            if (targetPiece == null) {
-                validMove.add(new Position(targetPos.row, targetPos.col));
-            } else if (targetPiece.getColor() == color.opponent()) {
-                validMove.add(targetPos);
+            pos = new Position(currentPos.row + offset, currentPos.col);
+            if (validPosition(pos) && board.getPieceAt(pos) == null) {
+                validMove.add(pos);
             }
-
         }
+        pos = new Position(currentPos.row + offset, currentPos.col + 1);
+        if (checkCaptureMove(pos)) validMove.add(pos);
+        pos = new Position(currentPos.row + offset, currentPos.col - 1);
+        if (checkCaptureMove(pos)) validMove.add(pos);
+    }
+
+    private boolean checkCaptureMove(Position pos) {
+        if (pos.isOutOfBoard()) return false;
+        Piece piece = board.getPieceAt(pos);
+        if (piece == null) return false;
+        if (piece.getColor() != color.opponent()) return false;
+        return true;
     }
 }

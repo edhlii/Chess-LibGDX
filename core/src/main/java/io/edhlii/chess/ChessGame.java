@@ -16,13 +16,13 @@ public class ChessGame extends ApplicationAdapter {
     public static final int WINDOW_WIDTH = 1200;
     public static final int WINDOW_HEIGHT = 800;
     public static final int BOARD_SIZE = 8;
+    public static PieceColor currentTurn;
     private SpriteBatch batch;
     private ShapeRenderer shapeRenderer;
     private FitViewport viewport;
     private Texture image;
     private Board board;
     private GameInputHandler gameInputHandler;
-
 
     private Texture whitePawnTexture;
     private Texture whiteRookTexture;
@@ -94,6 +94,7 @@ public class ChessGame extends ApplicationAdapter {
         board.addPiece(blackQueen);
 
         board.calculateBoard();
+        currentTurn = PieceColor.WHITE;
     }
 
     @Override

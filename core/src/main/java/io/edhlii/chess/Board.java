@@ -44,12 +44,13 @@ public class Board {
         }
     }
 
-    public void movePiece(Position src, Position dest) {
+    public boolean movePiece(Position src, Position dest) {
         Piece piece = getPieceAt(src);
-        if (!piece.getValidMove().contains(dest)) return;
+        if (!piece.getValidMove().contains(dest)) return false;
         removePieceAt(dest);
         piece.setCurrentPos(dest);
         piece.setHasMoved(true);
+        return true;
     }
 
     public ArrayList<Piece> getPieces() {
@@ -72,7 +73,7 @@ public class Board {
                 if ((row + col) % 2 == 0) {
                     shapeRenderer.setColor(Color.WHITE);
                 } else {
-                    shapeRenderer.setColor(Color.BLACK);
+                    shapeRenderer.setColor(Color.BROWN);
                 }
                 shapeRenderer.rect(row, col, 1, 1);
             }
