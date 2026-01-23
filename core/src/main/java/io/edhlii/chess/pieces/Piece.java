@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import io.edhlii.chess.Board;
+import io.edhlii.chess.ChessGame;
 import io.edhlii.chess.Position;
 
 import java.util.ArrayList;
@@ -104,6 +105,68 @@ public class Piece {
     }
 
     public void calculateValidMove() {
+    }
+
+    protected void calculateRookValidMove() {
+        for (int row = currentPos.row + 1; row < ChessGame.BOARD_SIZE; ++row) {
+            Position pos = new Position(row, currentPos.col);
+            if (!validPosition(pos)) break;
+            validMove.add(pos);
+            Piece piece = board.getPieceAt(pos);
+            if (piece != null) break;
+        }
+        for (int row = currentPos.row - 1; row >= 0; --row) {
+            Position pos = new Position(row, currentPos.col);
+            if (!validPosition(pos)) break;
+            validMove.add(pos);
+            Piece piece = board.getPieceAt(pos);
+            if (piece != null) break;
+        }
+        for (int col = currentPos.col - 1; col >= 0; --col) {
+            Position pos = new Position(currentPos.row, col);
+            if (!validPosition(pos)) break;
+            validMove.add(pos);
+            Piece piece = board.getPieceAt(pos);
+            if (piece != null) break;
+        }
+        for (int col = currentPos.col + 1; col < ChessGame.BOARD_SIZE; ++col) {
+            Position pos = new Position(currentPos.row, col);
+            if (!validPosition(pos)) break;
+            validMove.add(pos);
+            Piece piece = board.getPieceAt(pos);
+            if (piece != null) break;
+        }
+    }
+
+    protected void calculateBishopValidMove() {
+        for (int row = currentPos.row + 1, col = currentPos.col + 1; ; ++row, ++col) {
+            Position pos = new Position(row, col);
+            if (pos.isOutOfBoard() || !validPosition(pos)) break;
+            validMove.add(pos);
+            Piece piece = board.getPieceAt(pos);
+            if (piece != null) break;
+        }
+        for (int row = currentPos.row - 1, col = currentPos.col - 1; ; --row, --col) {
+            Position pos = new Position(row, col);
+            if (pos.isOutOfBoard() || !validPosition(pos)) break;
+            validMove.add(pos);
+            Piece piece = board.getPieceAt(pos);
+            if (piece != null) break;
+        }
+        for (int row = currentPos.row - 1, col = currentPos.col + 1; ; --row, ++col) {
+            Position pos = new Position(row, col);
+            if (pos.isOutOfBoard() || !validPosition(pos)) break;
+            validMove.add(pos);
+            Piece piece = board.getPieceAt(pos);
+            if (piece != null) break;
+        }
+        for (int row = currentPos.row + 1, col = currentPos.col - 1; ; ++row, --col) {
+            Position pos = new Position(row, col);
+            if (pos.isOutOfBoard() || !validPosition(pos)) break;
+            validMove.add(pos);
+            Piece piece = board.getPieceAt(pos);
+            if (piece != null) break;
+        }
     }
 
 }

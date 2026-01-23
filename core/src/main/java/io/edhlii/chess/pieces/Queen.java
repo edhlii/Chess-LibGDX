@@ -15,49 +15,7 @@ public class Queen extends Piece {
     @Override
     public void calculateValidMove() {
         validMove.clear();
-
-        // Mimic Rook movement
-        for (int row = currentPos.row + 1; row < ChessGame.BOARD_SIZE; ++row) {
-            Position pos = new Position(row, currentPos.col);
-            if (validPosition(pos))
-                validMove.add(pos);
-        }
-        for (int row = currentPos.row - 1; row >= 0; --row) {
-            Position pos = new Position(row, currentPos.col);
-            if (validPosition(pos))
-                validMove.add(pos);
-        }
-        for (int col = currentPos.col - 1; col >= 0; --col) {
-            Position pos = new Position(currentPos.row, col);
-            if (validPosition(pos))
-                validMove.add(pos);
-        }
-        for (int col = currentPos.col + 1; col < ChessGame.BOARD_SIZE; ++col) {
-            Position pos = new Position(currentPos.row, col);
-            if (validPosition(pos))
-                validMove.add(pos);
-        }
-
-        // Mimic Bishop movement
-        for (int row = currentPos.row + 1, col = currentPos.col + 1; ; ++row, ++col) {
-            Position pos = new Position(row, col);
-            if (pos.isOutOfBoard()) break;
-            if (validPosition(pos)) validMove.add(pos);
-        }
-        for (int row = currentPos.row - 1, col = currentPos.col - 1; ; --row, --col) {
-            Position pos = new Position(row, col);
-            if (pos.isOutOfBoard()) break;
-            if (validPosition(pos)) validMove.add(pos);
-        }
-        for (int row = currentPos.row - 1, col = currentPos.col + 1; ; --row, ++col) {
-            Position pos = new Position(row, col);
-            if (pos.isOutOfBoard()) break;
-            if (validPosition(pos)) validMove.add(pos);
-        }
-        for (int row = currentPos.row + 1, col = currentPos.col - 1; ; ++row, --col) {
-            Position pos = new Position(row, col);
-            if (pos.isOutOfBoard()) break;
-            if (validPosition(pos)) validMove.add(pos);
-        }
+        calculateRookValidMove();
+        calculateBishopValidMove();
     }
 }

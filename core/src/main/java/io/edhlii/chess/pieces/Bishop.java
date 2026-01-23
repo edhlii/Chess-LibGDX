@@ -15,25 +15,6 @@ public class Bishop extends Piece {
     @Override
     public void calculateValidMove() {
         validMove.clear();
-        for (int row = currentPos.row + 1, col = currentPos.col + 1; ; ++row, ++col) {
-            Position pos = new Position(row, col);
-            if (pos.isOutOfBoard()) break;
-            if (validPosition(pos)) validMove.add(pos);
-        }
-        for (int row = currentPos.row - 1, col = currentPos.col - 1; ; --row, --col) {
-            Position pos = new Position(row, col);
-            if (pos.isOutOfBoard()) break;
-            if (validPosition(pos)) validMove.add(pos);
-        }
-        for (int row = currentPos.row - 1, col = currentPos.col + 1; ; --row, ++col) {
-            Position pos = new Position(row, col);
-            if (pos.isOutOfBoard()) break;
-            if (validPosition(pos)) validMove.add(pos);
-        }
-        for (int row = currentPos.row + 1, col = currentPos.col - 1; ; ++row, --col) {
-            Position pos = new Position(row, col);
-            if (pos.isOutOfBoard()) break;
-            if (validPosition(pos)) validMove.add(pos);
-        }
+        calculateBishopValidMove();
     }
 }
