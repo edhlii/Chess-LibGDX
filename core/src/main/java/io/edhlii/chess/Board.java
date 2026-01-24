@@ -4,7 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import io.edhlii.chess.pieces.Pawn;
 import io.edhlii.chess.pieces.Piece;
+import io.edhlii.chess.pieces.PieceType;
 
 import java.util.ArrayList;
 
@@ -13,6 +15,8 @@ public class Board {
     private ShapeRenderer shapeRenderer;
     private SpriteBatch batch;
     private GameInputHandler gameInputHandler;
+
+    public Piece pawnVulnerableToEnPassant = null;
 
     Board(ShapeRenderer shapeRenderer, SpriteBatch batch) {
         this.shapeRenderer = shapeRenderer;
@@ -50,6 +54,13 @@ public class Board {
         removePieceAt(dest);
         piece.setCurrentPos(dest);
         piece.setHasMoved(true);
+        if (pawnVulnerableToEnPassant != null) pawnVulnerableToEnPassant = null;
+        if (piece.getType().equals(PieceType.PAWN)) {
+            Pawn pawn = (Pawn) piece;
+            if (src.row == dest.row - 2 * pawn.getOffset()) {
+                pawnVulnerableToEnPassant = pawn;
+            }
+        }
         return true;
     }
 

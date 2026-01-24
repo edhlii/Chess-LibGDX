@@ -9,6 +9,7 @@ import io.edhlii.chess.Position;
 public class Knight extends Piece {
     public Knight(SpriteBatch batch, ShapeRenderer shapeRenderer, Texture texture, Board board, PieceColor color, Position pos) {
         super(batch, shapeRenderer, texture, board, color, pos);
+        this.type = PieceType.KNIGHT;
     }
 
     @Override
