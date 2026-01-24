@@ -10,6 +10,7 @@ import io.edhlii.chess.Position;
 public class Rook extends Piece {
     public Rook(SpriteBatch batch, ShapeRenderer shapeRenderer, Texture texture, Board board, PieceColor color, Position pos) {
         super(batch, shapeRenderer, texture, board, color, pos);
+        this.type = PieceType.ROOK;
     }
 
     @Override

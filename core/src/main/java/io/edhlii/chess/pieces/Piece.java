@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import io.edhlii.chess.Board;
 import io.edhlii.chess.ChessGame;
@@ -18,6 +17,8 @@ public class Piece {
     private Texture texture;
     private FitViewport viewport;
 
+    protected PieceType type;
+    protected boolean justMoved;
     protected boolean hasMoved;
     protected PieceColor color;
     protected Board board;
@@ -31,8 +32,24 @@ public class Piece {
         this.color = color;
         this.texture = texture;
         this.currentPos = pos;
-        hasMoved = false;
+        hasMoved = justMoved = false;
         validMove = new ArrayList<>();
+    }
+
+    public PieceType getType() {
+        return type;
+    }
+
+    public void setType(PieceType type) {
+        this.type = type;
+    }
+
+    public boolean isJustMoved() {
+        return justMoved;
+    }
+
+    public void setJustMoved(boolean justMoved) {
+        this.justMoved = justMoved;
     }
 
     public boolean isHasMoved() {

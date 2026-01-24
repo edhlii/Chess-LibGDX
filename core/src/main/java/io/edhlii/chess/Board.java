@@ -1,10 +1,11 @@
 package io.edhlii.chess;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import io.edhlii.chess.pieces.Pawn;
 import io.edhlii.chess.pieces.Piece;
+import io.edhlii.chess.pieces.PieceType;
 
 import java.util.ArrayList;
 
@@ -13,6 +14,8 @@ public class Board {
     private ShapeRenderer shapeRenderer;
     private SpriteBatch batch;
     private GameInputHandler gameInputHandler;
+
+    public Piece pawnVulnerableToEnPassant = null;
 
     Board(ShapeRenderer shapeRenderer, SpriteBatch batch) {
         this.shapeRenderer = shapeRenderer;
@@ -47,10 +50,24 @@ public class Board {
     public boolean movePiece(Position src, Position dest) {
         Piece piece = getPieceAt(src);
         if (!piece.getValidMove().contains(dest)) return false;
+        if (pawnVulnerableToEnPassant != null) pawnVulnerableToEnPassant = null;
+        if (piece.getType().equals(PieceType.PAWN)) {
+            moveEnPassant(src, dest);
+        }
         removePieceAt(dest);
         piece.setCurrentPos(dest);
         piece.setHasMoved(true);
         return true;
+    }
+
+    private void moveEnPassant(Position src, Position dest) {
+        Pawn pawn = (Pawn) getPieceAt(src);
+        if (dest.row == src.row + 2 * pawn.getOffset()) {
+            pawnVulnerableToEnPassant = pawn;
+        }
+        if (dest.row == src.row + pawn.getOffset() && Math.abs(dest.col - src.col) == 1) {
+            removePieceAt(new Position(dest.row - pawn.getOffset(), dest.col));
+        }
     }
 
     public ArrayList<Piece> getPieces() {

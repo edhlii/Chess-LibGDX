@@ -80,7 +80,6 @@ public class GameInputHandler implements InputProcessor {
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
-        System.out.println("dragging");
         return false;
     }
 
